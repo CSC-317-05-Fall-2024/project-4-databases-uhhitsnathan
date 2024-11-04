@@ -1,0 +1,67 @@
+body{
+    background-color: white;
+}
+
+
+.main-page-title{
+    background-image: url("/images/santa_clarita.jpg");
+    height: 200px;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    border: 5px solid black;
+     
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(40, 54, 24);
+    height:50px;
+    align-items: center;
+    border: 5px solid black;
+    border-top: 0px;
+    color: white;
+}
+a{
+    color: wheat;
+    text-decoration: none;
+}
+
+.restaurant-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.restaurant-card{
+    background-color:rgb(40, 54, 24) ;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border: 5px solid black;
+}
+
+.restaurant-card img{
+    max-width: 100%;
+    min-width: 304.672px;
+    min-height: 304.672px;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer {
+    background-color: rgb(40, 54, 24);
+    color: white;
+    position: relative;
+    height: 30px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    border: 2px solid black;
+    text-align: end;
+}
