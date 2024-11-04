@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants</title>
+    <link rel="stylesheet" href="/restaurant-styles.css">
+    
+</head>
+<body>
+
+
+    <header>
+    </header>
+
+
+    <nav>
+    </nav>
+
+    <main>
+        <div class="restaurant-grid">
+            <% restaurants.forEach(restaurant => { %>
+                <div class="restaurant-card" data-id="<%= restaurant.id %>">
+                    <img src="<%= restaurant.photo %>" alt="Image of <%= restaurant.name %>">
+                    <h3><%= restaurant.name %></h3>
+                    <p><%= restaurant.address %></p>
+                    <p><%= restaurant.phone %></p>
+                    <button class="delete-btn" data-id="<%= restaurant.id %>">Delete</button>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+    
+
+
+
+<footer>
+</footer>
+
+<script src="/scripts/header.js"></script>
+<script src="/scripts/restaurantCards.js"></script>
+
+
+</body>
+</html>
