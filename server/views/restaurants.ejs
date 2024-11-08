@@ -22,7 +22,9 @@
             <% restaurants.forEach(restaurant => { %>
                 <div class="restaurant-card" data-id="<%= restaurant.id %>">
                     <img src="<%= restaurant.photo %>" alt="Image of <%= restaurant.name %>">
-                    <h3><%= restaurant.name %></h3>
+                    <h3>
+                        <a href="/restaurants/<%= restaurant.id %>"><%= restaurant.name %></a>
+                    </h3>
                     <p><%= restaurant.address %></p>
                     <p><%= restaurant.phone %></p>
                     <button class="delete-btn" data-id="<%= restaurant.id %>">Delete</button>

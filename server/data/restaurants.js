@@ -1,4 +1,4 @@
-
+import { pool } from '../config/database.js';
 
 
 // Get a list of restaurants

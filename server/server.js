@@ -30,14 +30,19 @@ app.get('/attractions', (req, res) => {
 
 
 //dynamic pages
-app.get('/restaurants', (req, res) => {
-  const restaurants = getRestaurants(); // Retrieve the list of restaurants
-  res.render('restaurants', { restaurants }); // Render the page with restaurant data
+app.get('/restaurants', async (req, res) => {
+  try {
+      const restaurants = await getRestaurants(); // This returns an array
+      res.render('restaurants', { restaurants }); // Pass the array to your EJS template
+  } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Error fetching restaurants');
+  }
 });
 
-app.get('/restaurants/:id', (req, res) => {
+app.get('/restaurants/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  const restaurant = getRestaurant(id);
+  const restaurant = await getRestaurant(id);
   if (restaurant) {
     res.render('restaurant-details', { restaurant });  // Corrected the quotes and passing restaurant data
   } else {
@@ -52,16 +57,6 @@ app.get('/new-restaurant', (req, res) => {
 });
 
 
-app.get('/restaurants/:id', (req,res) => {
-  const restaurantId = parseInt(req.params.id);
-  const restaurant = getRestaurant(restaurantId);
-  if(restaurant){
-    res.render('restaurant-details', { restaurant });
-  }
-  else{
-    res.status(404).send('Restaurant not found');
-  }
-})
 
 
 app.listen(PORT, () => {

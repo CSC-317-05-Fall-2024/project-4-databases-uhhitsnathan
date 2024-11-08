@@ -1,4 +1,5 @@
 import express from 'express';
+import { pool } from '../config/database.js';
 import { getRestaurants, getRestaurant, createRestaurant, updateRestaurant, deleteRestaurant } from '../data/restaurants.js';
 const router = express.Router();
 
@@ -11,11 +12,11 @@ router.get('/restaurants', (req, res) => {
 
 
 
-router.post('/restaurants', (req, res) => {
+router.post('/restaurants', async (req, res) => {
     console.log(req.body);
     const restaurantData = req.body;
     try{
-        const restaurant = createRestaurant(restaurantData);
+        const restaurant = await createRestaurant(restaurantData);
         res.status(200).json(restaurant);
     }catch(error){
         console.log(error);
@@ -23,12 +24,12 @@ router.post('/restaurants', (req, res) => {
     }
 });
 
-router.patch('/restaurants/:id', (req, res) => {
+router.patch('/restaurants/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const restaurantData = req.body; // Data to update the restaurant
 
     try {
-        const updatedRestaurant = updateRestaurant(id, restaurantData);
+        const updatedRestaurant =  await updateRestaurant(id, restaurantData);
         if (!updatedRestaurant) {
             return res.status(404).json({ message: 'Restaurant not found' });
         }
