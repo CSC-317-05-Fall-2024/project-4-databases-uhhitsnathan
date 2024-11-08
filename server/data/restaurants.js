@@ -62,4 +62,18 @@ const deleteRestaurant = async (id) => {
     }
 };
 
-export { getRestaurants, getRestaurant, createRestaurant, deleteRestaurant, updateRestaurant };
+const getReviewsForRestaurant = async (id) => {
+    try {
+        const results = await pool.query(
+            'SELECT * FROM reviews WHERE restaurant_id = $1 ORDER BY id ASC',
+            [id]
+        );
+        return results.rows; // Returns the list of reviews
+    } catch (error) {
+        console.error(error.message);
+        return [];
+    }
+};
+
+
+export { getRestaurants, getRestaurant, createRestaurant, deleteRestaurant, updateRestaurant, getReviewsForRestaurant };

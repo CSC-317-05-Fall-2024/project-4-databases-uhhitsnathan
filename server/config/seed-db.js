@@ -5,6 +5,7 @@ const dropTables = async () => {
     try {
         console.log('dropping tables...');
         const dropTablesQuery = `
+            DROP TABLE IF EXISTS reviews;
             DROP TABLE IF EXISTS restaurants;
         `;
         await pool.query(dropTablesQuery);
@@ -17,16 +18,24 @@ const createTables = async () => {
     try {
         console.log('creating restaurants...');
         const createQuery = `
-            CREATE TABLE IF NOT EXISTS restaurants (
+
+             CREATE TABLE IF NOT EXISTS restaurants (
                 id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                 name TEXT NOT NULL,
                 phone TEXT NOT NULL,
                 address TEXT NOT NULL,
                 photo TEXT
             );
+
+            CREATE TABLE IF NOT EXISTS reviews (
+                id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                rating INTEGER NOT NULL,
+                content TEXT NOT NULL,
+                restaurant_id INTEGER REFERENCES restaurants(id) ON DELETE CASCADE
+            );
         `;
         await pool.query(createQuery);
-        console.log('created restaurants');
+        console.log('created restaurants and reviews');
     } catch (error) {
         console.log(error)
     }
@@ -36,8 +45,7 @@ const insertData = async () => {
     try {
         console.log('adding initial data...');
         const insertQuery = `
-    INSERT INTO restaurants (name, phone, address, photo)
-    VALUES 
+    INSERT INTO restaurants (name, phone, address, photo) VALUES 
         ('Mom Can Cook Thai Kitchen', '(661) 251-8103', '18358 Soledad Canyon Rd, Santa Clarita, CA 91387', '/images/download.jpeg'),
         ('Toppers Pizza', '(661) 222-7888', '8417 Soledad Canyon Rd, Santa Clarita, CA 91387', '/images/toppers.jpeg'),
         ('Gyromania', '(661) 252-4976', '20655 Soledad Canyon Rd, Santa Clarita, CA 91351', '/images/gyro.jpeg'),
@@ -47,6 +55,14 @@ const insertData = async () => {
         ('Chi-Chis Pizza', '(661) 252-4405', '27117 Sierra Hwy, Canyon Country, CA 91351', '/images/chi.jpeg'),
         ('IN-N-Out Burger', '(800) 786-1000', '28368 Sand Canyon Rd, Santa Clarita, CA 91351', '/images/out3.jpeg'),
         ('Bonsai Sushi Garden', '(661) 251-9008', '19358 Soledad Canyon Rd, Santa Clarita, CA 91351', '/images/bonsai.jpg');
+
+    INSERT INTO reviews (rating, content, restaurant_id) VALUES 
+        (5, 'the food is good and ambience is also good', 1),
+        (4, 'omg the food so spicy but good', 1),
+        (4, 'pizza is a bit expensive, but good', 2),
+        (3, 'food is good they need to update salad bar', 2);
+
+
 `;
 
         await pool.query(insertQuery);
